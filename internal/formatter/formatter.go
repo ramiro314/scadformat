@@ -36,9 +36,11 @@ type Formatter struct {
 	settings *FormatSettings
 }
 
-func NewFormatter(fileName string) *Formatter {
+func NewFormatter(fileName string, noBackup bool) *Formatter {
+	settings := DefaultFormatSettings(fileName)
+	settings.noBackup = noBackup
 	return &Formatter{
-		settings: DefaultFormatSettings(fileName),
+		settings: settings,
 	}
 }
 
@@ -69,12 +71,14 @@ func (f *Formatter) formatFile() error {
 		return err
 	}
 
-	timeStamp := time.Now().Format("2006-01-02_15-04-05")
-	backupFileName := strings.TrimSuffix(f.settings.fileName, filepath.Ext(f.settings.fileName)) + "_" + timeStamp + ".scadbak"
-	err = os.WriteFile(backupFileName, input, 0666)
-	if err != nil {
-		zap.S().Errorf("failed to write file %s: %s", backupFileName, err)
-		return err
+	if !f.settings.noBackup {
+		timeStamp := time.Now().Format("2006-01-02_15-04-05")
+		backupFileName := strings.TrimSuffix(f.settings.fileName, filepath.Ext(f.settings.fileName)) + "_" + timeStamp + ".scadbak"
+		err = os.WriteFile(backupFileName, input, 0666)
+		if err != nil {
+			zap.S().Errorf("failed to write file %s: %s", backupFileName, err)
+			return err
+		}
 	}
 
 	err = os.WriteFile(f.settings.fileName, output, 0666)

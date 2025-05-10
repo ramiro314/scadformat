@@ -24,6 +24,7 @@ type FormatSettings struct {
 	fileName   string
 	maxLineLen int
 	indentSize int
+	noBackup   bool
 }
 
 func DefaultFormatSettings(fileName string) *FormatSettings {
@@ -31,5 +32,6 @@ func DefaultFormatSettings(fileName string) *FormatSettings {
 		fileName:   fileName,
 		maxLineLen: math.MaxInt,
 		indentSize: 4,
+		noBackup:   false,
 	}
 }

@@ -51,7 +51,7 @@ func TestFormat(t *testing.T) {
 	runTestOnDir(t, validInputDir, func(t *testing.T) {
 		testData := readTestData(t, validInputDir)
 
-		formatter := NewFormatter("")
+		formatter := NewFormatter("", false)
 
 		output, err := formatter.formatBytes(testData)
 		if err != nil {
@@ -72,7 +72,7 @@ func TestReformat(t *testing.T) {
 	runTestOnDir(t, validInputDir, func(t *testing.T) {
 		validInput := readTestData(t, validInputDir)
 
-		formatter := NewFormatter("")
+		formatter := NewFormatter("", false)
 
 		output, err := formatter.formatBytes(validInput)
 		if err != nil {
@@ -106,7 +106,7 @@ func TestUpdate(t *testing.T) {
 	runTestOnDir(t, validInputDir, func(t *testing.T) {
 		validInput := readTestData(t, validInputDir)
 
-		formatter := NewFormatter("")
+		formatter := NewFormatter("", false)
 
 		output, err := formatter.formatBytes(validInput)
 		if err != nil {

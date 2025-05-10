@@ -26,7 +26,11 @@ scadformat my-source.scad
 ```
 INFO	formatting file my-source.scad
 ```
-In this mode, SCADFormat will overwrite the existing code with the formatted version. Note that SCADFormat creates a backup of the original file (with a .scadbak extension) before overwriting it.
+In this mode, SCADFormat will overwrite the existing code with the formatted version. Note that SCADFormat creates a backup of the original file (with a .scadbak extension) before overwriting it. You can use the `--no-backup` flag to skip creating backup files:
+
+```bash
+scadformat --no-backup my-source.scad
+```
 
 ### Read from stdin / write to stdout
 
@@ -47,6 +51,11 @@ find . -type f -name "*.scad" -exec scadformat "{}" \;
 If you are ok with the result, you can delete all backup files (.scadbak)
 ```bash
 find $directory -type f -name "*.scadbak" -exec rm "{}" \;
+```
+
+Alternatively, you can use the `--no-backup` flag to avoid creating backup files in the first place:
+```bash
+find . -type f -name "*.scad" -exec scadformat --no-backup "{}" \;
 ```
 
 ## Building
