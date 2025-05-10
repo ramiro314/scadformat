@@ -36,9 +36,10 @@ type Formatter struct {
 	settings *FormatSettings
 }
 
-func NewFormatter(fileName string, noBackup bool) *Formatter {
+func NewFormatter(fileName string, noBackup bool, indentSize int) *Formatter {
 	settings := DefaultFormatSettings(fileName)
 	settings.noBackup = noBackup
+	settings.indentSize = indentSize
 	return &Formatter{
 		settings: settings,
 	}

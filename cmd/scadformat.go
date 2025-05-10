@@ -40,8 +40,10 @@ func main() {
 
 	var logLevel string
 	var noBackup bool
+	var indentSize int
 	pflag.StringVar(&logLevel, "log-level", "info", "Logging level (one of debug, info, warn, or error)")
 	pflag.BoolVar(&noBackup, "no-backup", false, "Skip creating backup files")
+	pflag.IntVar(&indentSize, "indent-size", 2, "Number of spaces to use for indentation")
 	pflag.Parse()
 
 	err = logutil.ConfigureLogging(logLevel)
@@ -58,7 +60,7 @@ func main() {
 		zap.L().Fatal("only a single filename may be specified on the command line")
 	}
 
-	formatter := formatter.NewFormatter(fileName, noBackup)
+	formatter := formatter.NewFormatter(fileName, noBackup, indentSize)
 	err = formatter.Format()
 	if err != nil {
 		zap.L().Fatal(err.Error())

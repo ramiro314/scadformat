@@ -2,7 +2,7 @@
 
 SCADFormat is a source code formatter / beautifier for [OpenSCAD](https://openscad.org/).
 
-SCADFormat is, shall we say, "opinionated" in the way that it formats OpenSCAD code. In other words, there are no configuration options that alter the way code is formatted. That's not because I feel strongly that OpenSCAD code should be formatted a certain way - it's just that I haven't had time to implement options.
+SCADFormat is, shall we say, "opinionated" in the way that it formats OpenSCAD code. It provides a few configuration options that alter the way code is formatted, such as indentation size.
 
 ## Installation
 
@@ -32,6 +32,12 @@ In this mode, SCADFormat will overwrite the existing code with the formatted ver
 scadformat --no-backup my-source.scad
 ```
 
+You can also customize the number of spaces used for indentation with the `--indent-size` flag (default is 2):
+
+```bash
+scadformat --indent-size=4 my-source.scad
+```
+
 ### Read from stdin / write to stdout
 
 SCADFormat can also read from stdin and write to stdout as follows:
@@ -56,6 +62,11 @@ find $directory -type f -name "*.scadbak" -exec rm "{}" \;
 Alternatively, you can use the `--no-backup` flag to avoid creating backup files in the first place:
 ```bash
 find . -type f -name "*.scad" -exec scadformat --no-backup "{}" \;
+```
+
+You can combine multiple flags as needed:
+```bash
+find . -type f -name "*.scad" -exec scadformat --no-backup --indent-size=4 "{}" \;
 ```
 
 ## Building
